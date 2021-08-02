@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<user>aztec</user>
+	<cpee>
+		<server>http://localhost:8298/</server>
+		<instantiation>http://localhost:9296/</instantiation>
+		<repository>repository/</repository>
+	</cpee>
+	<processes>
+		<process id="pbmc">
+			<dataelements>
+				<text>www.univie.ac.at</text>
+				<size>12</size>
+				<color>blue</color>
+			</dataelements>
+			<endpoints>
+				<user_text>http://localhost:6000/user_text</user_text>
+				<createaztec>http://localhost:6000/createaztec</createaztec>
+				<changesize>http://localhost:6000/changesize</changesize>
+				<changecolor>http://localhost:6000/changecolor</changecolor>
+				<user_confirmation>http://localhost:6000/user_confirmation</user_confirmation>
+				<message>http://localhost:6000/user_message</message>
+				<inkscape>http://localhost:6000/inkscape</inkscape>
+			</endpoints>
+		</process>
+	</processes>
+</config>

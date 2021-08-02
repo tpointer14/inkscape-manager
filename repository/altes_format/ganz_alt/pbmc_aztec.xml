@@ -1,0 +1,257 @@
+<testset xmlns="http://cpee.org/ns/properties/2.0">
+  <handlerwrapper>DefaultHandlerWrapper</handlerwrapper>
+  <dataelements/>
+  <endpoints>
+    <timeout>http://gruppe.wst.univie.ac.at/~mangler/services/timeout.php</timeout>
+  </endpoints>
+  <attributes>
+    <info>pbmc</info>
+    <modeltype>CPEE</modeltype>
+    <theme>preset</theme>
+  </attributes>
+  <description>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="createaztec">
+        <parameters>
+          <label>Create Code</label>
+          <method>:get</method>
+          <arguments>
+            <text>!data.text</text>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+      <call id="a1" endpoint="changesize">
+        <parameters>
+          <label>Change Size</label>
+          <method>:get</method>
+          <arguments>
+            <size>!data.size</size>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+      <call id="a4" endpoint="changecolor">
+        <parameters>
+          <label>Change Color</label>
+          <method>:get</method>
+          <arguments>
+            <color>!data.color</color>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+      <call id="a5" endpoint="user_confirmation">
+        <parameters>
+          <label>User Confirmation</label>
+          <method>:post</method>
+          <arguments>
+            <confirmation>Finally add Code to Inkscape?</confirmation>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <code>
+          <prepare/>
+          <finalize output="result">data.userconf = result['forward']</finalize>
+          <update output="result"/>
+          <rescue output="result"/>
+        </code>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+        <code>
+          <description/>
+        </code>
+      </call>
+      <choose mode="exclusive">
+        <alternative condition="data.userconf == 'forward'">
+          <_probability>
+            <_probability_min/>
+            <_probability_max/>
+            <_probability_avg/>
+          </_probability>
+        </alternative>
+        <otherwise>
+          <call id="a6" endpoint="message">
+            <parameters>
+              <label>Message Abort</label>
+              <method>:post</method>
+              <arguments>
+                <message>Aborted</message>
+              </arguments>
+              <stream>
+                <sensors/>
+                <ips/>
+              </stream>
+              <report>
+                <url/>
+              </report>
+            </parameters>
+            <annotations>
+              <_timing>
+                <_timing_weight/>
+                <_timing_avg/>
+                <explanations/>
+              </_timing>
+              <_notes>
+                <_notes_general/>
+              </_notes>
+            </annotations>
+            <input/>
+            <output/>
+            <implementation>
+              <description/>
+            </implementation>
+          </call>
+          <terminate/>
+        </otherwise>
+      </choose>
+      <call id="a3" endpoint="inkscape">
+        <parameters>
+          <label>Inkscape</label>
+          <method>:get</method>
+          <arguments/>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+      <call id="a7" endpoint="message">
+        <parameters>
+          <label>Message done</label>
+          <method>:post</method>
+          <arguments>
+            <message>Process is finished.</message>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+    </description>
+  </description>
+  <transformation>
+    <description type="copy"/>
+    <dataelements type="none"/>
+    <endpoints type="none"/>
+  </transformation>
+</testset>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<user>qr</user>
+	<cpee>
+		<server>http://localhost:8298/</server>
+		<instantiation>http://localhost:9296/</instantiation>
+		<repository>repository/</repository>
+	</cpee>
+	<processes>
+		<process id="pbmc">
+			<dataelements>
+				<text>Default-Text</text>
+				<size>5</size>
+				<color>#880000</color>
+			</dataelements>
+			<endpoints>
+				<user_text>http://localhost:6000/user_text</user_text>
+				<createqr>http://localhost:6000/createqr</createqr>
+				<changesize>http://localhost:6000/changesize</changesize>
+				<changecolor>http://localhost:6000/changecolor</changecolor>
+				<inkscape>http://localhost:6000/inkscape</inkscape>
+				<message>http://localhost:6000/user_message</message>
+			</endpoints>
+		</process>
+	</processes>
+</config>

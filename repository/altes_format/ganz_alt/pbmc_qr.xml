@@ -1,0 +1,115 @@
+<testset xmlns="http://cpee.org/ns/properties/2.0">
+  <handlerwrapper>DefaultHandlerWrapper</handlerwrapper>
+  <dataelements/>
+  <endpoints>
+    <createqr>http://localhost:5000/createqr</createqr>
+    <timeout>http://gruppe.wst.univie.ac.at/~mangler/services/timeout.php</timeout>
+    <changesize>http://localhost:5000/changesize</changesize>
+    <inkscape>http://localhost:5000/inkscape</inkscape>
+  </endpoints>
+  <attributes>
+    <info>pbmc</info>
+    <modeltype>CPEE</modeltype>
+    <theme>preset</theme>
+  </attributes>
+  <description>
+    <description xmlns="http://cpee.org/ns/description/1.0">
+      <call id="a2" endpoint="createqr">
+        <parameters>
+          <label>Create Code</label>
+          <method>:get</method>
+          <arguments>
+            <text>!data.text</text>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+      <call id="a1" endpoint="changesize">
+        <parameters>
+          <label>Change Size</label>
+          <method>:get</method>
+          <arguments>
+            <size>10</size>
+          </arguments>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+      <call id="a3" endpoint="inkscape">
+        <parameters>
+          <label>Inkscape</label>
+          <method>:get</method>
+          <arguments/>
+          <stream>
+            <sensors/>
+            <ips/>
+          </stream>
+          <report>
+            <url/>
+          </report>
+        </parameters>
+        <annotations>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <input/>
+        <output/>
+        <implementation>
+          <description/>
+        </implementation>
+      </call>
+    </description>
+  </description>
+  <transformation>
+    <description type="copy"/>
+    <dataelements type="none"/>
+    <endpoints type="none"/>
+  </transformation>
+</testset>

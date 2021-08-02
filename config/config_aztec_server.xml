@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<user>aztec</user>
+	<cpee>
+		<server>https://cpee.org/flow/engine/</server>
+		<instantiation>https://cpee.org/flow/start/</instantiation>
+		<repository>repository/</repository>
+	</cpee>
+	<processes>
+		<process id="pbmc">
+			<dataelements>
+				<text>www.univie.ac.at</text>
+				<size>12</size>
+				<color>blue</color>
+			</dataelements>
+			<endpoints>
+				<user_text>http://cpee.org/inkscape-manager/user_text</user_text>
+				<createaztec>http://cpee.org/inkscape-manager/createaztec</createaztec>
+				<changesize>http://cpee.org/inkscape-manager/changesize</changesize>
+				<changecolor>http://cpee.org/inkscape-manager/changecolor</changecolor>
+				<user_confirmation>http://cpee.org/inkscape-manager/user_confirmation</user_confirmation>
+				<message>http://cpee.org/inkscape-manager/user_message</message>
+				<inkscape>http://cpee.org/inkscape-manager/inkscape</inkscape>
+			</endpoints>
+		</process>
+	</processes>
+</config>
