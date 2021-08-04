@@ -51,7 +51,7 @@
       document.querySelector("#user_message").innerText = data.message
       document.querySelector("#history").innerText = data.history
       document.querySelector("#variant").innerText = "variant: " + data.user
-      if(data.user_confirmation_visible.trim() == "false"){
+      if(data.user_confirmation_visible.trim() == "true"){
         document.querySelector("#user_confirmation").style.display = "block"
         document.querySelector("#user_confirmation_text").innerText = data.user_confirmation_text
         document.querySelector("#dim_screen1").style.display = "block"
