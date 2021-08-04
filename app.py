@@ -17,9 +17,9 @@ import functions as funcs
 app = Flask(__name__)
 
 
-#path to GUI (global) - depending on wether app.py is running on localhost, or on cpee.org
-GUI = "http://localhost:6000/"
-#GUI = "https://cpee.org/inkscape-manager/"
+#PATH TO GUI - depending on wether app.py is running on localhost, or on cpee.org
+#GUI = "http://localhost:6000/"
+GUI = "https://cpee.org/inkscape-manager/"
 
 
 #index page - GUI
@@ -54,6 +54,13 @@ def worker():
         #wait 0.5 seconds before rerunning the loop
         time.sleep(0.5)
 
+    #update GUI to "FINISH"
+    with open('gui_information.json') as json_file:
+        data = json.load(json_file)
+    data['CPEE-STATE'] = " - finished"
+    with open('gui_information.json', 'w') as outfile:
+        json.dump(data, outfile)
+
     #return the svg-code as string from object.xml (in case object.xml doesn't exist, return "terminated")
     code = "terminated"
     if(os.path.exists("object.xml")):
@@ -68,12 +75,24 @@ def worker():
 @app.route("/listen")
 def listen():
     def respond_to_client():
+        #counter
+        i=0
         while True:
+            #get user every tenth time
+            user = "variant"
+            if(i%10 == 0):
+                if(os.path.exists("config.xml")):
+                    config = etree.parse('config.xml').getroot()
+                    user = config.find('user').text
+                else:
+                    user = "no config file!"
+
             with open('gui_information.json') as json_file:
                 data = json.load(json_file)
 
             info = data["CPEE-INSTANCE"]
             cpee_uuid = data["CPEE-INSTANCE-UUID"]
+            cpee_state = data["CPEE-STATE"]
             message = data["message"]
             user_confirmation_visible = data['user_confirmation_visible']
             user_confirmation_text = data['user_confirmation_text']
@@ -81,8 +100,10 @@ def listen():
             history = data['history']
 
             _data = json.dumps({
+                "user":user,
                 "info":info,
                 "cpee_uuid":cpee_uuid,
+                "cpee_state":cpee_state,
                 "message":message,
                 "user_confirmation_visible":user_confirmation_visible,
                 "user_confirmation_text":user_confirmation_text,
@@ -92,7 +113,7 @@ def listen():
 
             yield f"id: 1\ndata:{_data}\nevent: online\n\n"
 
-            time.sleep(0.5)
+            time.sleep(0.2)
     response = Response(respond_to_client(), mimetype='text/event-stream')
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response

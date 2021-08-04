@@ -26,7 +26,7 @@
         </parameters>
         <code>
           <prepare/>
-          <finalize output="result">p result; data.text = result['user_input_text']</finalize>
+          <finalize output="result">data.text = result['user_input_text']</finalize>
           <update output="result"/>
           <rescue output="result"/>
         </code>

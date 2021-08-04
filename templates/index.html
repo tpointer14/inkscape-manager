@@ -2,113 +2,40 @@
 <head>
   <meta charset="utf-8"/>
   <title id="title">Process</title>
+  <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Set a style for all buttons */
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.85;
+    }
+    button:hover {
+      opacity:1;
+    }
+    .cancelbtn, .submitbtn {
+      float: left;
+      width: 50%;
+    }
+    .cancelbtn {
+      background-color: #c9334e;
+      color: black;
+    }
+    .submitbtn {
+      background-color: #4CAF50;
+    }
+  </style>
 </head>
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box;}
-
-/* Set a style for all buttons */
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-button:hover {
-  opacity:1;
-}
-
-/* Float cancel and delete buttons and add an equal width */
-.cancelbtn, .deletebtn {
-  float: left;
-  width: 50%;
-}
-
-/* Add a color to the cancel button */
-.cancelbtn {
-  background-color: #ccc;
-  color: black;
-}
-
-/* Add a color to the delete button */
-.deletebtn {
-  background-color: #f44336;
-}
-
-/* Add padding and center-align text to the container */
-.container {
-  padding: 16px;
-  text-align: center;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
-  padding-top: 50px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* Style the horizontal ruler */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* The Modal Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
-
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and delete button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .deletebtn {
-     width: 100%;
-  }
-}
-</style>
 <body>
-  <h1 id="h1" style="text-align: center;"></h1>
   <script>
-    var eventSource = new EventSource("http://localhost:6000/listen")
-    //var eventSource = new EventSource("https://cpee.org/inkscape-manager/listen")
+    //var eventSource = new EventSource("http://localhost:6000/listen")
+    var eventSource = new EventSource("https://cpee.org/inkscape-manager/listen")
 
     eventSource.addEventListener("message", function(e) {
       console.log(e.data)
@@ -119,65 +46,82 @@ hr {
       data = JSON.parse(e.data)
       document.querySelector("#cpee_uuid1").value = data.cpee_uuid
       document.querySelector("#cpee_uuid2").value = data.cpee_uuid
-      document.querySelector("#h1").innerText = "CPEE " + data.info
+      document.querySelector("#link_to_cpee").href = 'https://cpee.org/flow/?monitor=https://cpee.org/flow/engine/' + data.info + '/'
+      document.querySelector("#link_to_cpee").innerText = 'CPEE Process ' + data.info + data.cpee_state
       document.querySelector("#user_message").innerText = data.message
       document.querySelector("#history").innerText = data.history
-      if(data.user_confirmation_visible.trim() == "true"){
+      document.querySelector("#variant").innerText = "variant: " + data.user
+      if(data.user_confirmation_visible.trim() == "false"){
         document.querySelector("#user_confirmation").style.display = "block"
         document.querySelector("#user_confirmation_text").innerText = data.user_confirmation_text
+        document.querySelector("#dim_screen1").style.display = "block"
       }else{
         document.querySelector("#user_confirmation").style.display = "none"
+        document.querySelector("#dim_screen1").style.display = "none"
       }
       if(data.text_input_visible.trim() == "true"){
         document.querySelector("#text_input").style.display = "block"
+        document.querySelector("#dim_screen2").style.display = "block"
       }else{
         document.querySelector("#text_input").style.display = "none"
+        document.querySelector("#dim_screen2").style.display = "none"
       }
-      //document.querySelector("#title").innerText = "CPEE Process " + data.info
     }, true)
   </script>
+  <!-- ************************************
+        HEADING WITH LINK TO CPEE
+  *************************************-->
+  <div style="position:fixed; width:100%; margin-top:-20px; margin-left:-10px; text-align:center;z-index: 2"><h1><a id="link_to_cpee" href="" target="_blank">CPEE Process</a></h1></div>
+
+  <!-- *** SPACING ***-->
+  <div style="width: 40%; height: 75px"></div>
+
+  <!-- ************************************
+              USER: MESSAGE
+  *************************************-->
+  <h2 style="text-align: center">Messages for User:</h2>
+  <div id="user_message" style="background-color: #86cfd8; width:40%; min-width:500px; margin: 0 auto; padding: 10px; text-align: center; border-radius: 5px; font-size: 25px; min-height: 100px"></div>
+
+
+  <!-- *** SPACING ***-->
+  <div style="width: 40%; height: 20px"></div>
 
 
   <!-- ************************************
               USER: HISTORY DISPLAY
   *************************************-->
-  <div id="history" style="background-color: #c6db4e; width:40%; margin: 0 auto; padding: 10px; text-align: center; border-style: solid;"></div>
-
-
-  <!-- *** SPACING ***-->
-  <div style="width: 40%; height: 10px"></div>
+  <h2 style="text-align: center">Process History:</h2>
+  <div id="history" style="background-color: #c6db4e; width:40%; min-width:500px; margin: 0 auto; padding: 10px; text-align: center; border-radius: 5px; min-height: 100px;"></div>
 
 
   <!-- ************************************
-              USER: MESSAGE
+              DIM Screens
   *************************************-->
-  <div id="user_message" style="background-color: #f96040; width:40%; margin: 0 auto; padding: 10px; text-align: center; border-style: solid; font-size: 25px;"></div>
+  <div id="dim_screen1" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:rgba(255,255,255,0.5);display:none;"></div>
+  <div id="dim_screen2" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:rgba(255,255,255,0.5);display:none;"></div>
 
 
   <!-- ************************************
               USER: CONFIRMATION
   *************************************-->
-  <div id="user_confirmation" style="padding:16px; margin: 0 auto; text-align:center;width: 50%; display:none;">
-    <h1>User Confirmation</h1>
+  <div id="user_confirmation" style="position:fixed; padding:16px; left:50%; top:100px; text-align: center; width: 500; margin-left:-265px; min-height:180px; z-index:2; display:none;background:#ddd;border-radius:5px;">
+    <h2>User Confirmation</h2>
     <p id="user_confirmation_text"></p>
-    <!--<form action="https://cpee.org/inkscape-manager/user_answer" method="post" style="display: block;">-->
-    <form action="/user_answer" method="post" style="display: block;">
+    <form action="https://cpee.org/inkscape-manager/user_answer" method="post">
+    <!--<form action="/user_answer" method="post" style="display: block;">-->
       <input id="cpee_uuid1" type="hidden" name="cpee_uuid" value="" />
       <button id="stop" class="cancelbtn" name="forward" value="stop" type="submit">Abort</button>
-      <button id="forward" class="deletebtn" name="forward" value="forward" type="submit">OK</button>
+      <button id="forward" class="submitbtn" name="forward" value="forward" type="submit">OK</button>
     </form>
   </div>
-
-  <!-- *** SPACING ***-->
-  <div style="width: 40%; height: 30px"></div>
 
   <!-- ************************************
               USER: TEXT INPUT
   *************************************-->
-  <div id="text_input" style="padding:16px; margin: 0 auto; text-align: center; width: 30%; display:none;">
-    <h1>User Text</h1>
-    <!--<form action="https://cpee.org/inkscape-manager/user_answer_text" method="post" style="display: block; background-color: gray; padding: 16px">-->
-    <form action="/user_answer_text" method="post" style="display: block; background-color: gray; padding: 16px">
+  <div id="text_input" style="position:fixed; padding:16px; left:50%; top:100px; text-align: center; width: 500; margin-left:-265px; min-height:180px; z-index:2; display:none;background:#ccc;border-radius:5px;">
+    <h2>User Input</h2>
+    <form action="https://cpee.org/inkscape-manager/user_answer_text" method="post">
+    <!--<form action="/user_answer_text" method="post" style="display: block; background-color: gray; padding: 16px">-->
       <input id="cpee_uuid2" type="hidden" name="cpee_uuid" value="" />
       <input type="text" name="user_input_text" style="width: 100%;">
       <button id="submit" type="submit" style="width: 50%">OK</button>
@@ -186,18 +130,14 @@ hr {
 
 
   <!-- *** SPACING ***-->
-  <div style="width: 40%; height: 30px"></div>
+  <div style="width: 40%; height: 50px"></div>
 
 
   <!-- ************************************
-              BUTTON BACK
+                  VARIANT
   *************************************-->
-  <form action="/">
-    <div style="background-color: #c6db4e; width:20%; margin: 0 auto; padding: 10px; text-align: center; cursor: pointer;" onclick="this.parentNode.submit();">
-    BACK
-    </div>
-  </form>
-
-
+  <div id="variant" style="background-color: #f1d068; width:20%; margin: 0 auto; padding: 10px; text-align: center; cursor: pointer; border-radius:5px;" onclick='this.parentNode.submit()'>
+  variant
+  </div>
 </body>
 </html>

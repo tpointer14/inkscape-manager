@@ -49,6 +49,7 @@ def prepare_gui_file(process_family, CPEE_INSTANCE_UUID, CPEE_INSTANCE):
     data = {
         "CPEE-INSTANCE-UUID":CPEE_INSTANCE_UUID,
         "CPEE-INSTANCE":CPEE_INSTANCE,
+        "CPEE-STATE":"",
         "message":"",
         "user_confirmation_visible":"false",
         "user_confirmation_text":"",
